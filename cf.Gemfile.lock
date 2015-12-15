@@ -17,7 +17,7 @@ GIT
       terminal-table (~> 1.4.5)
 
 GEM
-  remote: https://rubygems.org/
+  remote: https://ruby.taobao.org/
   specs:
     activesupport (4.1.13)
       i18n (~> 0.6, >= 0.6.9)

@@ -38,9 +38,9 @@ else
 fi
 
 if [[ "$(grep web: Staticfile)X" != "X" ]]; then
-  web_app=$(grep web: Staticfile | sed -e 's/^root: *//;s/\s*$//')
-  mkdir app
-  mv web_app  app/app.jar
+  web_app=$(grep web: Staticfile | sed -e 's/^web: *//;s/\s*$//')
+  mkdir -p app
+  mv $web_app  app/app.jar
 fi
 
 root_dir=${root_dir:-.}

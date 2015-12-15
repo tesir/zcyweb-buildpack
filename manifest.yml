@@ -1,5 +1,5 @@
 ---
-language: staticfile
+language: zcyweb
 
 exclude_files:
   - .git/
@@ -10,7 +10,7 @@ exclude_files:
   - log/
   - test/
   - buildpack-packager/
-  - staticfile_buildpack-*v*.zip
+  - zcyweb_buildpack-*v*.zip
 
 url_to_dependency_map:
   - match: nginx.tgz
