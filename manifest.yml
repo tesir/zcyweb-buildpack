@@ -17,6 +17,10 @@ url_to_dependency_map:
     name: nginx
     version: 1.8.0
 
+  - match: openjdk.tgz
+    name: openjdk
+    version: 1.8.0
+
 dependencies:
   - name: nginx
     version: 1.8.0
@@ -24,3 +28,10 @@ dependencies:
     cf_stacks:
       - cflinuxfs2
     md5: e12cddcba72d5008f94b298a02a8e6d4
+
+  - name: openjdk
+    version: 1.8.0
+    uri: http://download.tesir.cn/tools/open_jdk_jre-1.8.0-linux-x64.tgz
+    cf_stacks:
+      - cflinuxfs2
+    md5: 39c7aca2d81a0b0e66caf57aa54cb171

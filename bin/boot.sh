@@ -32,6 +32,8 @@ mkfifo $APP_ROOT/nginx/logs/error.log
 cat < $APP_ROOT/nginx/logs/access.log &
 (>&2 cat) < $APP_ROOT/nginx/logs/error.log &
 
+$APP_HOME/open_jdk_jre/bin/java -Djava.io.tmpdir=/tmp -XX:OnOutOfMemoryError=$PWD/open_jdk_jre/bin/killjava.sh -Xmx768M -Xms768M -XX:MaxMetaspaceSize=104857K -XX:MetaspaceSize=104857K -Xss1M $PWD/app/app.jar &
+
 exec $APP_ROOT/nginx/sbin/nginx -p $APP_ROOT/nginx -c $APP_ROOT/nginx/conf/nginx.conf
 
 # ------------------------------------------------------------------------------------------------

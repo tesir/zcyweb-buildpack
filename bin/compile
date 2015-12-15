@@ -21,6 +21,11 @@ BUILDPACK_PATH=$compile_buildpack_dir source $compile_buildpack_dir/compile-exte
 translated_url=$($compile_buildpack_dir/compile-extensions/bin/download_dependency nginx.tgz /tmp)
 echo "Downloaded [$translated_url]"
 compile_nginx_tgz="/tmp/nginx.tgz"
+
+translated_url=$($compile_buildpack_dir/compile-extensions/bin/download_dependency openjdk.tgz /tmp)
+echo "Downloaded [$translated_url]"
+compile_openjdk_tgz="/tmp/openjdk.tgz"
+
 cd $build_dir
 
 # Alternate root location (default is root of project) for html/js/css
@@ -31,6 +36,13 @@ if [[ "$(grep root: Staticfile)X" != "X" ]]; then
 else
   status "Using root folder"
 fi
+
+if [[ "$(grep web: Staticfile)X" != "X" ]]; then
+  web_app=$(grep web: Staticfile | sed -e 's/^root: *//;s/\s*$//')
+  mkdir app
+  mv web_app  app/app.jar
+fi
+
 root_dir=${root_dir:-.}
 if [[ ! -e ${root_dir} ]] ; then
   error "the application Staticfile specifies a root directory \`${root_dir}\` that does not exist"
@@ -55,6 +67,9 @@ cp -f $compile_buildpack_dir/conf/mime.types nginx/conf/mime.types
 
 [[ -f $build_dir/public/nginx.conf ]] && mv $build_dir/public/nginx.conf nginx/conf/nginx.conf
 [[ -f $build_dir/public/mime.types ]] && mv $build_dir/public/mime.types nginx/conf/mime.types
+
+status "Setting up openjdk"
+tar xzf $compile_openjdk_tgz
 
 if [[ -f Staticfile.auth ]]; then
   status "Enabling basic authentication"
